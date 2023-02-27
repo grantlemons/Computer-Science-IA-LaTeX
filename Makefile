@@ -1,5 +1,5 @@
 .DEFAULT_GOAL := auto_build
-.PHONY: all auto_build build bib clean
+.PHONY: all auto_build build bib clean markdown docx count
 
 COMPILER = xelatex
 OUTPUT = build
@@ -7,7 +7,7 @@ FILENAME = advisory-ia
 OUTPUT_NAME = "Grant Lemons Computer Science IA"
 OPTIONS = -shell-escape -output-directory=${OUTPUT}
 
-all: build bib build clean
+all: build bib build clean markdown docx count
 
 auto_build:
 	@${make_build_dir}
@@ -20,6 +20,15 @@ remote:
 	@scp -r ./* desktop:/tmp/latex/${FILENAME}
 	@ssh desktop 'cd /tmp/latex/${FILENAME} && make'
 	@scp desktop:/tmp/latex/${FILENAME}/${FILENAME}.pdf ./${OUTPUT_NAME}.pdf
+
+markdown:
+	@pandoc --wrap=none --bibliography bibliography.bib -f latex -t markdown ${FILENAME}.tex -o ${FILENAME}.md
+
+docx:
+	@pandoc --wrap=none --bibliography bibliography.bib -f latex -t docx ${FILENAME}.tex -o ${FILENAME}.docx
+
+count:
+	@pandoc --lua-filter=wordcount.lua ${FILENAME}.tex
 
 build:
 	@echo "Compiling document"

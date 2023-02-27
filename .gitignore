@@ -10,3 +10,4 @@
 !Makefile
 !code/
 !.gitignore
+!wordcount.lua
