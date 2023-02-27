@@ -1,0 +1,12 @@
+*
+!**.tex
+!**.cls
+!**.png
+!**.jpg
+!**.jpeg
+!**.svg
+!./graphs/*
+!**.bib
+!Makefile
+!code/
+!.gitignore
