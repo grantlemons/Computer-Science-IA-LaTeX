@@ -1,5 +1,10 @@
 \documentclass{paper}
 
+%Document Info
+\newcommand{\thetitle}{Smart Advisory Generator}
+\newcommand{\researchquestion}{}
+\newcommand{\theauthor}{Grant Lemons}
+
 \begin{document}
 \insertTitlePage
 \pagenumbering{roman}
@@ -14,28 +19,30 @@
 \label{sec:planning}
 \subsection{Background}
 My school organizes the Upper School into small groups of teacher \textit{Advisors} and student \textit{Advisees}.
-Advsiories are assigned at the beginning of each academic school year and are used for occasions such as Trivia and general competitions.
+Advisories are assigned at the beginning of each academic school year and are used for occasions such as Trivia and general competitions.
 Teacher advisors also serve the role of guiding advisees on academic matters if need be and representing faculty in parent-teacher conferences.
-With this in mind, there are certain criteria that the school uses when creating advisories.
+
 Each advisory typically has two advisors, one teaching MYP and the other DP.
 In order to ensure that advisors will be able to assess a student's academic situation, the school organizes advisories such that at least one of the advisors teaches each student in the advisory.
 Other criteria are also kept in mind: each advisory should have an even balance of students from each grade and sex.
 
 Satisfying these requirements creates a challenge for administration at the beginning of each academic school year.
-My client, the Dean of Students at my school, is tasked each year with creating these advisories, and, as our Upper School grows year after year, this task has become increasingly difficult.
-After consulting with my client on this issue, I realized that this was exactly the type of problem that a computer program would be able to account for.
+My client, the Dean of Students at my school, is tasked each year with creating these advisories.
+Student body growth has made this task increasingly difficult.
+After consulting with my client on this issue, I realized that this was exactly the type of problem that a computer program would be able to optimize.
 
 \subsection{Solution}
-The complex relationships that make this problem so difficult to solve properly by one's self are well accounted for by existing technologies that my solution takes advantage of.
-I realized after assessing this issue that the relationships between the data (whom teaches whom) were much more important to the problem than the data itself (students and teachers.)
-A particular technology that deals well with situations like this is a \textit{graph database}, which emphasizes the relationships between database nodes more than it does the attributes each node posesses.
+My solution leverages existing technologies to solve the complex relationships human struggle with.
+I realized after assessing this issue that the relationships between the data (who teaches whom) were much more important to the problem than the data itself (students and teachers.)
+A \textit{graph database}, which emphasizes the relationships between database nodes more than it does the attributes each node possesses, is ideal for this situation.
 Each node can still possess attributes, such as name, grade, or sex, but how that data relates to other nodes takes the forefront.
-In order to actually run the business logic required to build the advisories, I decided to create a REST backend using the programming language Rust, interfaced with by a website built using the Svelte framework.
-I chose to architect the product in this manner because I wanted to make the process of using my product as painless as possible, and had I chosen to create an executable I would have needed to jump through hoops with our school's tech department to get it approved.
+In order to run the business logic required to build the advisories, I decided to create a REST backend using the programming language Rust.
+Users interact with by a website built using the Svelte framework.
+I chose to architect the product in this manner because I wanted to make the process of using my product as painless as possible, and had I chosen to create a desktop executable, it would have been less accessible.
 I also wanted my product to be scalable.
 Although this problem in particular was faced by my school, I felt that many organizations (schools, companies, or otherwise) might benefit from a generalized version of my product.
 As such, I optimized my backend to work in containerized cloud computing environments and to be as fast as possible.
-To do this I used the programming language Rust, because I was learning it at the time as I worked on a fairly similar (technology-stack-wise) personal project.
+To do this, I used the programming language Rust, because I was learning it at the time as I worked on a fairly similar (technology-stack-wise) personal project.
 It has several benefits such as providing low level performance with modern language features, and providing memory safety through the borrow checker.
 
 \subsection{Success Criteria}
