@@ -58,6 +58,19 @@ It has several appropriate benefits such as low level performance with modern la
 
 \section{Development}
 \label{sec:develop}
+After meeting with my client, I felt it most appropriate for the problem at hand---and in order to allow my client flexibility when using the too---I decided to create a multi-layered application hosted on the cloud.
+I had recently earned my Amazon Web Services Solutions Architect---Associate certification, so I decided to use those skills and my knowledge of AWS's services in order to take advantage of benefits of cloud computing such as the ability to scale services when appropriate.
+With my multi-layered architecture, the layers were established as the Frontend, Backend, and Database layers.
+The Frontend was a static website with its assets hosted in an AWS S3 bucket.
+The Backend was a webserver with a RESTful API implemented in Rust, containerized using Docker, and hosted on AWS Elastic Container Service deployed using AWS Fargate.
+The Database was the Neo4j Graph Database, using an official docker image and similarly deployed to AWS ECS in order to communicate well with the Backend.
+The development details for each layer are detailed in the subsequent subsections.
+
+\subsection{Frontend}
+
+\subsection{Backend}
+
+\subsection{Database}
 
 \section{Evaluation}
 \label{sec:eval}
