@@ -1,0 +1,72 @@
+\documentclass[../advisory-ia.tex]{subfiles}
+
+\begin{document}
+\begin{listing}[ht]
+  \centering
+  \snippet{Code to extract student data from spreadsheet}
+  \caption{Code to extract student data from spreadsheet}
+  \label{lst:import_students}
+  \begin{minted}
+  [
+    frame=lines,
+    framesep=2mm,
+    baselinestretch=1,
+    fontsize=\scriptsize,
+  ]
+  {typescript}
+    export function get_students(table: Table): Set<Student> {
+        // initialize variables
+        const students = new Set<Student>();
+        let previous_row_empty = false;
+        let current_student: Student = {
+            name: '',
+            teachers: [],
+            grade: Grade.Freshman,
+            sex: Sex.Male,
+            banned_pairings: [],
+        };
+        const current_student_teachers = new Set<string>();
+
+        // loop through each row of spreadsheet
+        for (let index = 0; index < table.length; index += 1) {
+            const row = table[index];
+            const row_empty: boolean = row[0] == undefined;
+            const row_name: string = row[6] + ' ' + row[5];
+            const row_grade: Grade = parse_grade_string(row[4]);
+            const row_sex: Sex = row[9] as Sex;
+            const row_teacher_name: string = row[8];
+
+            // exit if two rows in a row are empty
+            if (row_empty && previous_row_empty) {
+                break;
+            }
+            previous_row_empty = row_empty;
+            
+            // push and clear current_student when student changes
+            if (row_name != current_student.name) {
+                if (current_student.name != '') {
+                    current_student_teachers.forEach((s) =>
+                        current_student.teachers.push({ name: s })
+                    );
+                    console.log(current_student);
+                    students.add(current_student);
+                    current_student_teachers.clear();
+                }
+                current_student = {
+                    name: row_name,
+                    teachers: [],
+                    grade: row_grade,
+                    sex: row_sex,
+                    banned_pairings: []
+                };
+            }
+            // add teacher to set if exists
+            if (row_teacher_name != undefined) {
+                current_student_teachers.add(row_teacher_name);
+            }
+        }
+        return students;
+    }
+  \end{minted}
+\end{listing}
+\end{document}

@@ -1,0 +1,41 @@
+\documentclass[../advisory-ia.tex]{subfiles}
+
+\begin{document}
+  \begin{listing}[ht]
+  \centering
+  \snippet{Pre-refactor code to add a teacher to the database}
+  \caption{Pre-refactor code to add a teacher to the database}
+  \label{lst:old_add_teacher}
+  \begin{minted}
+  [
+    frame=lines,
+    framesep=2mm,
+    baselinestretch=1,
+    fontsize=\scriptsize,
+  ]{rust}
+    pub(crate) async fn add_teacher(
+        user: UserData,
+        graph: &neo4rs::Graph,
+        form: Teacher,
+    ) -> Result<u8, StatusCode> {
+        use neo4rs::query;
+
+        if !form.verify() {
+            return Err(StatusCode::UNPROCESSABLE_ENTITY);
+        }
+        log::info!("New teacher {:?} added", form.name);
+        // query database
+        graph
+            .run(
+                query("MERGE (t:Teacher { name: $name, user_id: $user_id })")
+                    .param("name", form.name)
+                    .param("user_id", user.sub),
+            )
+            .await
+            .unwrap();
+        // return 1 if nothing fails
+        Ok(1)
+    }
+  \end{minted}
+  \end{listing}
+\end{document}

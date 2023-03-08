@@ -1,0 +1,41 @@
+\documentclass[../advisory-ia.tex]{subfiles}
+
+\begin{document}
+  \begin{listing}[ht]
+  \centering
+  \snippet{Post-refactor code to add a teacher to the database}
+  \caption{Post-refactor code to add a teacher to the database}
+  \label{lst:new_add_teacher}
+  \begin{minted}
+  [
+    frame=lines,
+    framesep=2mm,
+    baselinestretch=1,
+    fontsize=\scriptsize,
+  ]{rust}
+    impl crate::DatabaseNode for Teacher {
+        async fn add_node<T: Into<String> + Send>(
+            &self,
+            graph: &neo4rs::Graph,
+            user_id: T,
+            no_duplicates: bool,
+        ) -> Result<u8, axum::http::StatusCode> {
+            // assemble database query
+            let query = match no_duplicates {
+                true => neo4rs::query("MERGE (t:Teacher { name: $name, user_id: $user_id })"),
+                false => neo4rs::query("CREATE (t:Teacher { name: $name, user_id: $user_id })"),
+            }
+            .param("name", self.name.as_str())
+            .param("user_id", user_id.into());
+
+            // return different values depending on result
+            match graph.run(query).await {
+                Ok(_) => Ok(1),
+                Err(_) => Err(axum::http::StatusCode::INTERNAL_SERVER_ERROR),
+            }
+        }
+    ...
+    }
+  \end{minted}
+  \end{listing}
+\end{document}

@@ -1,0 +1,46 @@
+\documentclass[../advisory-ia.tex]{subfiles}
+
+\begin{document}
+\begin{listing}[ht]
+  \centering
+  \snippet{Code to extract teacher data from spreadsheet}
+  \caption{Code to extract teacher data from spreadsheet}
+  \label{lst:import_teachers}
+  \begin{minted}
+  [
+    frame=lines,
+    framesep=2mm,
+    baselinestretch=1,
+    fontsize=\scriptsize,
+  ]
+  {typescript}
+    export function get_teachers(table: Table): Set<Teacher> {
+        const teacher_names = new Set<string>();
+
+        // loop through rows and add teachers
+        let empty_rows = 0;
+        for (let index = 0; index < table.length; index += 1) {
+            const row = table[index];
+            const row_empty = row[8] == undefined;
+
+            // break loop if 4 empty rows in a row
+            if (empty_rows >= 3 && row_empty) break;
+            if (row_empty) {
+                empty_rows += 1;
+            } else {
+                empty_rows = 0;
+                teacher_names.add(row[8]);
+            }
+        }
+        // iterate through list of teacher names to change to Teacher objects
+        const teachers = new Set<Teacher>();
+        teacher_names.forEach((s) =>
+            teachers.add({
+                name: s,
+            })
+        );
+        return teachers;
+    }
+  \end{minted}
+\end{listing}
+\end{document}

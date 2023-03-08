@@ -1,0 +1,53 @@
+\documentclass[../advisory-ia.tex]{subfiles}
+
+\begin{document}
+  \begin{listing}[ht]
+  \centering
+  \snippet{Function to generate advisories from vector of students}
+  \caption{Function to generate advisories from vector of students}
+  \label{lst:generate}
+  \begin{minted}
+  [
+    frame=lines,
+    framesep=2mm,
+    baselinestretch=1,
+    fontsize=\scriptsize,
+  ]{rust}
+    /// Places students into advisories and returns a vector of them
+    pub async fn generate(form: Settings, students: Vec<Student>) -> Result<Self, StatusCode> {
+        log::trace!("Building advisories");
+        form.verify()?;
+
+        // define values for later use
+        let student_count: i16 = students.len() as i16;
+        let advisory_count: i16 = form.num_advisories;
+
+        // create vector of advisories to fill
+        let mut advisories: Organization = Organization::new(student_count, advisory_count);
+
+        advisories.assign_teachers(&form.teacher_pairs);
+
+        // add students to advisories
+        for student in students {
+            let max: Option<usize> = advisories
+                .0
+                .iter()
+                .map(|target_advisory| {
+                    target_advisory.calculate_weight(
+                        &student,
+                        &form.weights,
+                        student_count / advisory_count,
+                    )
+                })
+                .enumerate()
+                .max_by(|(_, a), (_, b)| a.partial_cmp(b).unwrap_or(std::cmp::Ordering::Equal))
+                .map(|(index, _)| index);
+            if let Some(max) = max {
+                advisories.0[max].add_student(student);
+            }
+        }
+        Ok(advisories)
+    }
+  \end{minted}
+  \end{listing}
+\end{document}

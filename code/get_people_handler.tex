@@ -1,0 +1,35 @@
+\documentclass[../advisory-ia.tex]{subfiles}
+
+\begin{document}
+  \begin{listing}[ht]
+  \centering
+  \snippet{Handler to get a list of people for the logged in user}
+  \caption{Handler to get a list of people for the logged in user}
+  \label{lst:get_people_handler}
+  \begin{minted}
+  [
+    frame=lines,
+    framesep=2mm,
+    baselinestretch=1,
+    fontsize=\scriptsize,
+  ]{rust}
+    /// Handler to get all people for a specific user
+    #[axum_macros::debug_handler]
+    pub(crate) async fn get_people_handler(
+        State(state): State<SharedState>,
+        Extension(user_option): Extension<Option<UserData>>,
+    ) -> Result<Json<Vec<Person>>, StatusCode> {
+        // check if authenticated
+        if let Some(user) = user_option {
+            match &state.graph {
+                Some(graph) => Ok(Json(Person::get_nodes(graph, user.user_id()).await?)),
+                None => Err(StatusCode::BAD_GATEWAY),
+            }
+        } else {
+            log::info!("Unauthorized access to get_people_handler prevented");
+            Err(StatusCode::UNAUTHORIZED)
+        }
+    }
+  \end{minted}
+  \end{listing}
+\end{document}
