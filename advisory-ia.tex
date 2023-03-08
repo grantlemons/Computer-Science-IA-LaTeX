@@ -86,9 +86,9 @@ The algorithm to extract data from the spreadsheet (once transformed to a 2d arr
 \cref{lst:import_students} (importing students) is significantly more complicated than \cref{lst:import_teachers} (importing teachers), as it needs to extract the student's teachers over multiple rows.
 \cref{lst:import_students,lst:import_teachers} both use the Set datastructure in order to forbid duplicates.
 
-% \subfile{code/student_import}
+\subfile{code/student_import}
 
-% \subfile{code/teacher_import}
+\subfile{code/teacher_import}
 
 The functional portion of the Frontend is a dashboard that allows for the user to tweak certain settings for the advisory generation program.
 These settings are: number of generated advisories, and the relative weights of different factors in the generation process such as whether or not the advisory contains one of the student's teachers, grade diversity, and sex diversity.
@@ -102,12 +102,13 @@ The backend is significantly more complicated than the frontend, though it was e
 The backend consists of an HTTP server that forwards requests to certain handlers based on path.
 An example of a handler is \cref{lst:get_people_handler}.
 
-% \subfile{code/get_people_handler}
+\subfile{code/get_people_handler}
 
 The handlers call methods of several different structs such as Student, Teacher, Person, Advisory, and Organization.
 These methods handle the actual business logic of placing data from the frontend in the database, retrieving it, generating advisories, \&c.
 
-The core logic for the product generates a group of advisories (refered to as an \enquote{Organization}) using data from the.
+\subsubsection{Core Logic}
+The core logic for the product generates a group of advisories (refered to within the code as an \enquote{Organization}) using data from the.
 The method relies on several other functions and methods in order to work, but the gist of its functionality is apparent in \cref{lst:generate}.
 The method calculates a weighted value taking into account the relative weights set by the user on the Frontend between each Student and Advisory.
 The algorithm then adds the student to the Advisory with the highest weighted value.
@@ -115,7 +116,12 @@ For the diversity weights (grade and sex,) each advisory has a quota for each po
 The algorithm takes this into account and decreases or increases the weighted value in accordance with the remaining values for the quota.
 Should the student be added to the some advisory, then the remaining quotas for their respective sex \& grade are decreased by one.
 
-% \subfile{code/generate}
+Pairs of students can be prevented from being placed in the same advisory through a specific path.
+This creates a relationship in the graph database that is later stored in a vector on a per-student basis of all students that they should not be paired with.
+When each student's weight for an advisory is being calculated, a method checks whether the advisory already contains one of the people that the student is banned from being placed with.
+Should that be the case, the weighted value is reduced by 10,000, in order to effectively eliminate the chance of the student being placed in said advisory.
+
+\subfile{code/generate}
 
 \subsubsection{Refactor}
 I built the backend twice, once just to get it working, then I refactored it to improve performance and readability.
@@ -125,9 +131,9 @@ Using this simplified my code and allowed for more structure.
 Each struct that could be added to the database had an almost identical function, so I created a trait and simplified it to \cref{lst:new_add_teacher}.
 \cref{lst:new_add_teacher} uses generics and is run as a method of Teacher using dot notation, versus in \cref{lst:old_add_teacher} where a Teacher object must be passed as a parameter.
 
-% \subfile{code/old_add_teacher}
+\subfile{code/old_add_teacher}
 
-% \subfile{code/new_add_teacher}
+\subfile{code/new_add_teacher}
 
 Similar changes were made for many different functions, especially for those that interact with the database.
 
@@ -136,7 +142,7 @@ Similar changes were made for many different functions, especially for those tha
 
 \label{mylastpage}
 \pagenumbering{Roman}
-% \subfile{appendix}
+\subfile{appendix}
 \newpage
 \listoffigures
 \vspace{1cm}
