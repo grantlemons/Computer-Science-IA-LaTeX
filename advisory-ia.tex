@@ -128,11 +128,11 @@ The handlers call methods of several different structs such as Student, Teacher,
 These methods handle the actual business logic of placing data from the frontend in the database, retrieving it, generating advisories, \&c.
 
 \subsubsection{Core Logic}
-The core logic for the product generates a group of advisories (refered to within the code as an \enquote{Organization}) using data from the.
+The core logic for the product generates a group of advisories (referred to within the code as an \enquote{Organization}) using data from the database.
 The method relies on several other functions and methods in order to work, but the gist of its functionality is apparent in \cref{lst:generate}.
 The method calculates a weighted value taking into account the relative weights set by the user on the Frontend between each Student and Advisory.
 The algorithm then adds the student to the Advisory with the highest weighted value.
-For the diversity weights (grade and sex,) each advisory has a quota for each possible sex \& grade.
+For the diversity weights (grade and sex), each advisory has a quota for each possible sex \& grade.
 The algorithm takes this into account and decreases or increases the weighted value in accordance with the remaining values for the quota.
 Should the student be added to the some advisory, then the remaining quotas for their respective sex \& grade are decreased by one.
 
@@ -157,6 +157,9 @@ Each struct that could be added to the database had an almost identical function
 
 Similar changes were made for many different functions, especially for those that interact with the database.
 
+One of the biggest changes made in my refactor was applied to my bulk database queries.
+Originally, I had sent a separate query for each Student/Teacher, but during my refactor I figured out a way to offload this loop to be executed by the database, cutting down the number of slow transactions.
+
 \subsubsection{Error Handling}
 One thing that I tried to emphasize both originally and in my refactor was error handling.
 One of my favorite features of the Rust programming language is the Result generic type.
@@ -168,7 +171,6 @@ Since error types are Enums, they are handled idiomatically through the \texttt{
 
 \section{Evaluation}
 \label{sec:eval}
-
 
 \label{mylastpage}
 \newpage
