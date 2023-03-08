@@ -157,6 +157,15 @@ Each struct that could be added to the database had an almost identical function
 
 Similar changes were made for many different functions, especially for those that interact with the database.
 
+\subsubsection{Error Handling}
+One thing that I tried to emphasize both originally and in my refactor was error handling.
+One of my favorite features of the Rust programming language is the Result generic type.
+This type represents both a successful return type and an error type in the format \texttt{Result<T, E>}.
+This type allows functions to defer error handling to the caller, which avoids patterns such as \texttt{try...catch}.
+Since error types are Enums, they are handled idiomatically through the \texttt{match} syntax \cref{lst:match_syntax}.
+
+\subfile{code/match_syntax}
+
 \section{Evaluation}
 \label{sec:eval}
 

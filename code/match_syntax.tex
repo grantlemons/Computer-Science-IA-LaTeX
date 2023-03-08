@@ -1,0 +1,23 @@
+\documentclass[../advisory-ia.tex]{subfiles}
+
+\begin{document}
+  \begin{listing}[ht]
+  \centering
+  \snippet{Rust's match syntax}
+  \caption{Rust's match syntax}
+  \label{lst:match_syntax}
+  \begin{minted}
+  [
+    frame=lines,
+    framesep=2mm,
+    baselinestretch=1,
+    fontsize=\scriptsize,
+  ]{rust}
+    match (variable) {
+        Variant_1 => { /* code block */ },
+        Variant_2=> { /* code block */},
+        _ => { /* code block */ }
+    }
+  \end{minted}
+  \end{listing}
+\end{document}
