@@ -10,6 +10,7 @@ OPTIONS = -shell-escape -output-directory=${OUTPUT}
 all: build bib build clean markdown docx count
 
 auto_build:
+	@plantuml UML-Diagram.txt
 	@${make_build_dir}
 	@echo "Running latexmk"
 	@latexmk -${COMPILER} ${OPTIONS} ${FILENAME}

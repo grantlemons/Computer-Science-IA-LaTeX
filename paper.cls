@@ -75,6 +75,7 @@
 \usepackage[nameinlink, noabbrev, capitalize]{cleveref}
 \usepackage{ragged2e}
 \usepackage{booktabs}
+\usepackage{tikz}
 
 %Needspace
 \usepackage{needspace}

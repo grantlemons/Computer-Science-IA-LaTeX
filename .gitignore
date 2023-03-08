@@ -5,9 +5,12 @@
 !**.jpg
 !**.jpeg
 !**.svg
+!**.txt
+!**.uml
 !./graphs/*
 !**.bib
 !Makefile
 !code/
 !.gitignore
 !wordcount.lua
+UML-Diagram.png

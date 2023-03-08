@@ -1,0 +1,95 @@
+@startuml
+interface DatabaseNode {
+    add_node()
+    add_multiple_nodes()
+    remove_node()
+    clear_nodes()
+    get_nodes()
+}
+
+interface Verify {
+    verify()
+}
+
+enum Grade {
+    Freshman
+    Sophomore
+    Junior
+    Senior
+}
+
+enum Sex {
+    Male
+    Female
+}
+
+class Person {
+    +name: String
+}
+
+class Student {
+    +name: String
+    +teachers: Vec<Teachers>
+    +grade: Grade
+    +sex: Sex
+    +default()
+}
+
+class Teacher {
+    +name: String
+    +new()
+}
+
+class Weights {
+    +has_teacher: u8
+    +sex_diverse: u8
+    +grade_diverse: u8
+}
+
+class Settings {
+    +weights: Weights
+    +num_advisories: u16,
+    +teacher_pairs: Vec<[Option<Teacher>; 2]>
+}
+
+class Advisory {
+    -advisors: Vec<Advisors>
+    -students: Vec<Student>
+    +remaining_sex: [i16; 2]
+    +remaining_grade: [i16; 4]
+    +new()
+    +add_student()
+    +add_teacher()
+    +get_remaining_sex()
+    +get_remaining_grade()
+    +has_teacher()
+    +calculate_weight()
+}
+
+class Organization {
+    +advisories: Vec<Advisory>
+    -new()
+    -assign_teachers()
+    +generate()
+}
+
+Person ..|> DatabaseNode
+Student ..|> DatabaseNode
+Teacher ..|> DatabaseNode
+
+Weights ..|> Verify
+Teacher ..|> Verify
+Student ..|> Verify
+
+Student --+ Sex
+Student --+ Grade
+
+Student --o Teacher
+
+Settings --* Weights
+
+Advisory --* Student
+Advisory --* Teacher
+
+Organization --* Advisory
+@enduml
