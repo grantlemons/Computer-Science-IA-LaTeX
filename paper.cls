@@ -120,33 +120,6 @@
 }
 \renewcommand\cftsnippetindent{\cftfigindent}
 
-%Tikz
-\usepackage{tikz}
-\usetikzlibrary{calc}
-\usetikzlibrary{patterns}
-\usetikzlibrary{fpu}
-\usetikzlibrary{spy}
-
-%Tikz Graphs
-\newcommand{\exampleLowSubintervals}{6}
-\newcommand{\exampleHighSubintervals}{60}
-\newcommand{\ruleEq}[1]{cos((#1 + 2) r)+1}
-\newcommand{\simpleEq}[1]{((#1+(2/3))^3 + 2*(#1)^2)/6}
-\newcommand{\complexEq}[1]{2*(sin((3)/(abs(#1)+.3) r)^2)}
-\newcommand{\normalEq}[1]{(10/sqrt(2*pi))*e^((-1/2)*((#1)^2))}
-\newcommand{\DerDerNormalEq}[1]{(\normalEq{#1})*((#1)^2 - 1)}
-\newcommand{\graphRule}{\draw[darkgray, smooth, thick, samples=100, domain={\leftbound-.05}:{\rightbound+.05}] plot(\x, {\ruleEq{\x}}) node[darkgray, align=left, right, yshift=0.5cm, xshift=-3.9cm] {\scriptsize \(f(x)\)};}
-\newcommand{\graphSimple}{\draw[darkgray, smooth, thick, samples=100, domain={\leftbound-.05}:{\rightbound+.05}] plot(\x, {\simpleEq{\x}}) node[darkgray, align=left, right, yshift=-0.2cm, xshift=-3.0cm] {\tiny\(f(x)\)};}
-\newcommand{\graphComplex}{\draw[darkgray, smooth, thick, samples=1500, domain={\leftbound-.05}:{\rightbound+.05}] plot(\x, {\complexEq{\x}}) node[darkgray, align=left, right, yshift=.15cm, xshift=-3.6cm] {\tiny\(f(x)\)};}
-\newcommand{\graphNormal}{\draw[darkgray, smooth, thick, samples=100, domain={\leftbound-.05}:{\rightbound+.05}] plot(\x, {\normalEq{\x}}) node[darkgray, align=left, right, yshift=2.5cm, xshift=-3cm] {\small\(f(x)\)};}
-\newcommand{\graphDerDerNormal}{\draw[dashed, darkgray, smooth, thick, samples=100, domain={\leftbound-.05}:{\rightbound+.05}] plot(\x, {\DerDerNormalEq{\x}}) node[darkgray, align=left, right, yshift=-1.5cm, xshift=-3.3cm] {\small\(\sder{x}\)};}
-\newcommand{\numline}[1]{
-    \draw[black, thick] ({\rightbound+.1}, -0.02) -- ({\leftbound-.1}, -0.02) node[black, align=center, left, yshift=-0.13cm, xshift=.5cm] {\scriptsize \(x\)};
-    \foreach \x in  {#1} {
-        \draw[color=black] (\x, 3pt) -- (\x, -3pt) node[below]{\tiny \(\x\)};
-    }
-}
-
 % Top and bottom rules for tables
 \newcommand{\dtoprule}{\toprule[1pt]\midrule[0.3pt]}
 \newcommand{\dbottomrule}{\midrule[0.3pt]\bottomrule[1pt]}
@@ -167,13 +140,7 @@
 \fancyhead[R]{\thepage \hspace{1pt} of \pageref{mylastpage}}
 \setlength{\headheight}{15pt}
 
-%Equation Numbering
-\newcommand*\tageq{\refstepcounter{equation}\tag{\theequation}}
-
-%Derivative commands
-\newcommand{\der}[1]{\frac{d(#1)}{dx}}
-\newcommand{\derf}[2]{\frac{d(#1)}{dx}(#2)}
-\newcommand{\sder}[1]{f''(#1)}
-\newcommand{\sderf}[2]{#1''(#2)}
-
+%Interview Dialog
+\newenvironment{interviewer}{\emph{Interviewer}:~}{}
+\newenvironment{client}{\emph{Client}:~}{}
 \endinput
