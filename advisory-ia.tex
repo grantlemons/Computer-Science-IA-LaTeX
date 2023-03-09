@@ -91,7 +91,7 @@ Starting this project, the part I was most weary of was the Frontend.
 I had created several Backends before, but had never ventured into CSS or Frontend frameworks.
 At my summer internship, some of my fellow interns developed the frontend using React, which is considered the industry standard, but I wanted to try a developer-friendly framework I had heard about called Svelte.
 My biggest challenges faced in this area were: working with CSS (especially making my website work on varying screen sizes) and the somewhat-limited Svelte ecosystem.
-I wanted to use Google's Material UI (MUI) for on-screen assets such as buttons, text boxes, \&c, but found that the Svelte implementation of the standards, called SMUI, was poorly documented, rapidly evolving, and did not implement the MUI specifications completely.
+I wanted to use Google's Material UI (MUI) for on-screen assets such as buttons, text boxes, etc., but found that the Svelte implementation of the standards, called SMUI, was poorly documented, rapidly evolving, and did not implement the MUI specifications completely.
 
 As currently implemented, my Frontend is comprised of five pages, most of them for authentication purposes.
 I implemented authentication and authorization using AWS Cognito User Pools.
@@ -125,16 +125,16 @@ An example of a handler is \cref{lst:get_people_handler}.
 \subfile{code/get_people_handler}
 
 The handlers call methods of several different structs such as Student, Teacher, Person, Advisory, and Organization.
-These methods handle the actual business logic of placing data from the frontend in the database, retrieving it, generating advisories, \&c.
+These methods handle the actual business logic of placing data from the frontend in the database, retrieving it, generating advisories, etc.
 
 \subsubsection{Core Logic}
 The core logic for the product generates a group of advisories (referred to within the code as an \enquote{Organization}) using data from the database.
 The method relies on several other functions and methods in order to work, but the gist of its functionality is apparent in \cref{lst:generate}.
 The method calculates a weighted value taking into account the relative weights set by the user on the Frontend between each Student and Advisory.
 The algorithm then adds the student to the Advisory with the highest weighted value.
-For the diversity weights (grade and sex), each advisory has a quota for each possible sex \& grade.
+For the diversity weights (grade and sex), each advisory has a quota for each possible sex and grade.
 The algorithm takes this into account and decreases or increases the weighted value in accordance with the remaining values for the quota.
-Should the student be added to the some advisory, then the remaining quotas for their respective sex \& grade are decreased by one.
+Should the student be added to the some advisory, then the remaining quotas for their respective sex and grade are decreased by one.
 
 Pairs of students can be prevented from being placed in the same advisory through a specific path.
 This creates a relationship in the graph database that is later stored in a vector on a per-student basis of all students that they should not be paired with.
