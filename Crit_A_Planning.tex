@@ -1,0 +1,48 @@
+\documentclass[advisory-ia.tex]{subfiles}
+
+% \DoIfAndOnlyIfStandAlone{%
+  \externaldocument{Crit_B_Design.tex}%
+  \externaldocument{Crit_C_Development.tex}%
+  \externaldocument{Crit_E_Evaluation.tex}%
+  \externaldocument{appendix}%
+% }%
+
+\begin{document}
+  \section{Planning}
+  \label{sec:planning}
+  \subsection{Background}
+  My school organizes the Upper School into small groups of teacher \emph{Advisors} and student \emph{Advisees}.
+  Advisories are assigned at the beginning of each academic school year and are used for occasions such competitions and trivia.
+  Teacher advisors also serve the role of guiding advisees on academic matters and representing faculty in parent-teacher conferences.
+
+  Each advisory typically has two advisors, one teaching MYP and the other DP.
+  In order to ensure that advisors will be able to assess a student's academic situation, the school organizes advisories such that at least one of the advisors teaches each student in the advisory.
+  Other criteria are also kept in mind: each advisory should have an even balance of students from each grade and sex.
+
+  Satisfying these requirements creates a challenge for administration at the beginning of each academic school year.
+  My client, the Dean of Students, is tasked each year with creating these advisories.
+  Student body growth has made this task increasingly difficult.
+  After consulting with my client on this issue (Appendix A), I realized that this was exactly the type of problem that a computer program would be able to optimize.
+
+  \subsection{Solution}
+  I realized after assessing this issue that the relationships between the data (who teaches whom) were much more important to the problem than the data itself (students and teachers.)
+  A \textit{graph database}, which emphasizes the relationships between database nodes more than it does the attributes each node possesses, is ideal for this situation.
+  Each node can still possess attributes, such as name, grade, or sex, but how that data relates to other nodes takes the forefront.
+  In order to run the business logic required to build the advisories, I decided to create a RESTful backend.
+  Users interact with the backend via a website built using the Svelte framework.
+  I chose to architect the product in this manner because I wanted to make the process of using my product as painless as possible, and, had I chosen to create a desktop executable, it would have been less accessible.
+  Although this problem in particular was faced by my school, I felt that many organizations (schools, companies, or otherwise) might benefit from a generalized version of my product.
+  As such, I optimized my backend to work in containerized cloud computing environments and to be as fast as possible so it could scale effectively.
+  To do this, I used the programming language Rust, because I was learning it at the time as I worked on a fairly similar (technology-stack-wise) personal project.
+  It has several appropriate benefits such as low level performance with modern language features and memory safety through the borrow checker.
+
+  \subsection{Success Criteria}
+  \begin{itemize}
+    \itemsep-4pt
+    \item The product creates groups of student advisees given certain parameters.
+    \item The product allows data to be imported from a spreadsheet.
+    \item The product allows for different aspects of generation to be weighted differently.
+    \item The client is able to forbid individuals from being placed in an advisory together.
+    \item The product stores the client's data between sessions.
+  \end{itemize}
+\end{document}

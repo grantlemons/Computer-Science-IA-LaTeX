@@ -16,6 +16,14 @@ auto_build:
 	@latexmk -${COMPILER} ${OPTIONS} ${FILENAME}
 	@${copy_pdf}
 
+subfiles:
+	@plantuml UML-Diagram.txt
+	@${make_build_dir}
+	@echo "Running latexmk for each"
+	@${build_subfiles}
+	@${make_subfile_dir}
+	@${move_subfile_pdfs}
+
 remote:
 	@ssh desktop 'rm -r /tmp/latex/${FILENAME}/ ; mkdir -p /tmp/latex/${FILENAME}/'
 	@scp -r ./* desktop:/tmp/latex/${FILENAME}
@@ -60,4 +68,22 @@ endef
 define make_build_dir
 	echo "Making build dir"
 	mkdir ./build || true
+endef
+
+define make_subfile_dir
+	rm ./subfile\ outputs || true
+	mkdir ./subfile\ outputs
+endef
+
+define build_subfiles
+	latexmk -${COMPILER} ${OPTIONS} Crit_A_Planning.tex
+	latexmk -${COMPILER} ${OPTIONS} Crit_B_Design.tex
+	latexmk -${COMPILER} ${OPTIONS} Crit_C_Development.tex
+	latexmk -${COMPILER} ${OPTIONS} Crit_E_Evaluation.tex
+	latexmk -${COMPILER} ${OPTIONS} appendix.tex
+endef
+
+define move_subfile_pdfs
+	cp build/Crit*.pdf ./subfile\ outputs/ || echo "Copying failed :("
+	cp build/appendix.pdf ./subfile\ outputs/Appendix.pdf || echo "Copying appendix failed :("
 endef
