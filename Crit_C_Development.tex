@@ -15,13 +15,13 @@
   The Frontend is a static website with its assets hosted in an AWS S3 bucket.
   The Backend is a webserver with a RESTful API implemented in Rust, containerized using Docker, and hosted on AWS Elastic Container Service deployed using AWS Fargate.
   The Database is the Neo4j Graph Database, using an official docker image and similarly deployed to AWS ECS in order to communicate well with the Backend.
-  The development details for the Frontend and Backend are detailed in \cref{subsec:frontend,subsec:backend} respectively.
+  The development details for the Frontend and Backend are detailed in \cref{subsec:Frontend,subsec:Backend} respectively.
 
   \subsection{Frontend}
-  \label{subsec:frontend}
+  \label{subsec:Frontend}
   Starting this project, the part I was most weary of was the Frontend.
   I had created several Backends before, but had never ventured into CSS or Frontend frameworks.
-  At my summer internship, some of my fellow interns developed the frontend using React, which is considered the industry standard, but I wanted to try a developer-friendly framework I had heard about called Svelte.
+  At my summer internship, some of my fellow interns developed the Frontend using React, which is considered the industry standard, but I wanted to try a developer-friendly framework I had heard about called Svelte.
   My biggest challenges faced in this area were: working with CSS (especially making my website work on varying screen sizes) and the somewhat-limited Svelte ecosystem.
   I wanted to use Google's Material UI (MUI) for on-screen assets such as buttons, text boxes, etc., but found that the Svelte implementation of the standards, called SMUI, was poorly documented, rapidly evolving, and did not implement the MUI specifications completely.
 
@@ -45,19 +45,19 @@
   The functional portion of the Frontend is a dashboard that allows for the user to tweak certain settings for the advisory generation program.
   These settings are: number of generated advisories, and the relative weights of different factors in the generation process such as whether or not the advisory contains one of the student's teachers, grade diversity, and sex diversity.
   These are sent to the Backend when the HTTP request to build the advisories is made.
-  These could be stored as a cookie or as a user-specific setting, but, similarly to the auth token, this is an avenue for future improvment to the product.
+  These could be stored as a cookie or as a user-specific setting, but, similarly to the auth token, this is an avenue for future improvement to the product.
 
   \subsection{Backend}
-  \label{subsec:backend}
-  The backend is significantly more complicated than the frontend, though it was easier for me to build.
+  \label{subsec:Backend}
+  The Backend is significantly more complicated than the Frontend, though it was easier for me to build.
 
-  The backend consists of an HTTP server that forwards requests to certain handlers based on path.
+  The Backend consists of an HTTP server that forwards requests to certain handlers based on path.
   An example of a handler is \cref{lst:get_people_handler}.
 
   \subfile{code/get_people_handler}
 
   The handlers call methods of several different structs such as Student, Teacher, Person, Advisory, and Organization.
-  These methods handle the actual business logic of placing data from the frontend in the database, retrieving it, generating advisories, etc.
+  These methods handle the actual business logic of placing data from the Frontend in the database, retrieving it, generating advisories, etc.
 
   \subsubsection{Core Logic}
   The core logic for the product generates a group of advisories (referred to within the code as an \enquote{Organization}) using data from the database.
@@ -76,7 +76,7 @@
   \subfile{code/generate}
 
   \subsubsection{Refactor}
-  I built the backend twice, once just to get it working, then I refactored it to improve performance and readability.
+  I built the Backend twice, once just to get it working, then I refactored it to improve performance and readability.
   In my refactor I made usage of more polymorphism through the use of \emph{traits}, a feature of Rust similar to interfaces in languages like Java.
   Using this simplified my code and allowed for more structure.
   \cref{lst:old_add_teacher} shows the pre-refactor code to add a teacher to the database.
@@ -102,7 +102,7 @@
   \subfile{code/match_syntax}
 
   \subsection{Use of Libraries \& Frameworks}
-  Both my frontend and backend make extensive usage of third party software and existing code to function.
+  Both my Frontend and Backend make extensive usage of third party software and existing code to function.
   Both the Rust and JavaScript ecosystems make heavy use of small packages both official and otherwise.
-  A list of these can be found in the \texttt{Cargo.toml} and \texttt{package.json} files in the frontend and backend respectively.
+  A list of these can be found in the \texttt{Cargo.toml} and \texttt{package.json} files in the Frontend and Backend respectively.
 \end{document}

@@ -28,11 +28,11 @@
   I realized after assessing this issue that the relationships between the data (who teaches whom) were much more important to the problem than the data itself (students and teachers.)
   A \textit{graph database}, which emphasizes the relationships between database nodes more than it does the attributes each node possesses, is ideal for this situation.
   Each node can still possess attributes, such as name, grade, or sex, but how that data relates to other nodes takes the forefront.
-  In order to run the business logic required to build the advisories, I decided to create a RESTful backend.
-  Users interact with the backend via a website built using the Svelte framework.
+  In order to run the business logic required to build the advisories, I decided to create a RESTful Backend.
+  Users interact with the Backend via a website built using the Svelte framework.
   I chose to architect the product in this manner because I wanted to make the process of using my product as painless as possible, and, had I chosen to create a desktop executable, it would have been less accessible.
   Although this problem in particular was faced by my school, I felt that many organizations (schools, companies, or otherwise) might benefit from a generalized version of my product.
-  As such, I optimized my backend to work in containerized cloud computing environments and to be as fast as possible so it could scale effectively.
+  As such, I optimized my Backend to work in containerized cloud computing environments and to be as fast as possible so it could scale effectively.
   To do this, I used the programming language Rust, because I was learning it at the time as I worked on a fairly similar (technology-stack-wise) personal project.
   It has several appropriate benefits such as low level performance with modern language features and memory safety through the borrow checker.
 
