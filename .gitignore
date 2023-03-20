@@ -14,3 +14,4 @@
 !.gitignore
 !wordcount.lua
 UML-Diagram.png
+!Crit_*.pdf

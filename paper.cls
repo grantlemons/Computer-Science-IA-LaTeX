@@ -49,6 +49,9 @@
 	\newpage
 }
 
+% External Documents
+\usepackage{xr-hyper}
+
 % Link setup
 \usepackage{hyperref}    
 \hypersetup{
