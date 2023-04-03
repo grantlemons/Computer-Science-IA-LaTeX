@@ -81,9 +81,11 @@ define build_subfiles
 	latexmk -${COMPILER} ${OPTIONS} Crit_C_Development.tex
 	latexmk -${COMPILER} ${OPTIONS} Crit_E_Evaluation.tex
 	latexmk -${COMPILER} ${OPTIONS} appendix.tex
+	latexmk -${COMPILER} ${OPTIONS} Code.tex
 endef
 
 define move_subfile_pdfs
 	cp build/Crit*.pdf ./subfile\ outputs/ || echo "Copying failed :("
 	cp build/appendix.pdf ./subfile\ outputs/Appendix.pdf || echo "Copying appendix failed :("
+	cp build/Code.pdf ./subfile\ outputs/ || echo "Copying code failed :("
 endef
