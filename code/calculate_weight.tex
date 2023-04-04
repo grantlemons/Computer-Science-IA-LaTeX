@@ -1,0 +1,46 @@
+\documentclass[../advisory-ia.tex]{subfiles}
+
+\begin{document}
+  \begin{listing}[ht]
+  \centering
+  \snippet{Algorithm to calculate the weighted score between a student and an advisory}
+  \caption{Algorithm to calculate the weighted score between a student and an advisory}
+  \label{lst:calculate_weight}
+  \begin{minted}
+  [
+    frame=lines,
+    framesep=2mm,
+    baselinestretch=1,
+    fontsize=\scriptsize,
+  ]{rust}
+    /// Calculate a weight between the advisory and a student
+    /// This value compensates for what the user deems important with weights assigned to
+    /// the different parameters
+    pub(crate) fn calculate_weight(
+        &self,
+        student: &Student,
+        weights: &Weights,
+        students_per_advisory: i16,
+    ) -> i32 {
+        let number_of_sexes: i32 = self.remaining_sex.len() as i32;
+        let number_of_grades: i32 = self.remaining_grade.len() as i32;
+
+        let teacher_weighted_value = weights.has_teacher as i32
+            * students_per_advisory as i32
+            * self.has_teacher(student) as i32;
+        let sexes_weighted_value = number_of_sexes
+            * (weights.sex_diverse as i32 * self.get_remaining_sex(&student.sex) as i32);
+        let grade_weighted_value = number_of_grades
+            * (weights.grade_diverse as i32 * self.get_remaining_grade(&student.grade) as i32);
+        let person_quota_weighted_value =
+            2 * weights.equal_people as i32 * self.get_remaining_people() as i32;
+        let banned_weighted_value = -10000 * self.has_banned_pairing(&student) as i32;
+        teacher_weighted_value
+            + sexes_weighted_value
+            + grade_weighted_value
+            + person_quota_weighted_value
+            + banned_weighted_value
+    }
+  \end{minted}
+  \end{listing}
+\end{document}

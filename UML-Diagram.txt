@@ -44,6 +44,7 @@ class Weights {
     +has_teacher: u8
     +sex_diverse: u8
     +grade_diverse: u8
+    +equal_people: u8
 }
 
 class Settings {
@@ -57,11 +58,13 @@ class Advisory {
     -students: Vec<Student>
     +remaining_sex: [i16; 2]
     +remaining_grade: [i16; 4]
+    +remaining_people: i16
     +new()
     +add_student()
     +add_teacher()
     +get_remaining_sex()
     +get_remaining_grade()
+    +get_remaining_people()
     +has_teacher()
     +calculate_weight()
 }

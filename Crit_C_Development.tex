@@ -70,8 +70,10 @@
 
   Pairs of students can be prevented from being placed in the same advisory through a specific path.
   This creates a relationship in the graph database that is later stored in a vector on a per-student basis of all students that they should not be paired with.
-  When each student's weight for an advisory is being calculated, a method checks whether the advisory already contains one of the people that the student is banned from being placed with.
+  When each student's weight for an advisory is being calculated (\cref{lst:calculate_weight}), a method checks whether the advisory already contains one of the people that the student is banned from being placed with.
   Should that be the case, the weighted value is reduced by 10,000, in order to effectively eliminate the chance of the student being placed in said advisory.
+
+  \subfile{code/calculate_weight}
 
   \subfile{code/generate}
 
