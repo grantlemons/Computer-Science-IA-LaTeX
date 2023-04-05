@@ -79,7 +79,7 @@ define build_subfiles
 	latexmk -${COMPILER} ${OPTIONS} Crit_A_Planning.tex
 	latexmk -${COMPILER} ${OPTIONS} Crit_B_Design.tex
 	latexmk -${COMPILER} ${OPTIONS} Crit_C_Development.tex
-	latexmk -${COMPILER} ${OPTIONS} Crit_D_Evaluation.tex
+	latexmk -${COMPILER} ${OPTIONS} Crit_E_Evaluation.tex
 	latexmk -${COMPILER} ${OPTIONS} appendix.tex
 	latexmk -${COMPILER} ${OPTIONS} Code.tex
 endef
