@@ -1,12 +1,5 @@
 \documentclass[advisory-ia.tex]{subfiles}
 
-% \DoIfAndOnlyIfStandAlone{%
-  \externaldocument{Crit_B_Design.tex}%
-  \externaldocument{Crit_C_Development.tex}%
-  \externaldocument{Crit_E_Evaluation.tex}%
-  \externaldocument{appendix}%
-% }%
-
 \begin{document}
   \section{Planning}
   \label{sec:planning}
@@ -45,4 +38,7 @@
     \item The client is able to forbid individuals from being placed in an advisory together.
     \item The product stores the client's data between sessions.
   \end{itemize}
+  \DoIfAndOnlyIfStandAlone{%
+    \label{mylastpage}
+  }%
 \end{document}
