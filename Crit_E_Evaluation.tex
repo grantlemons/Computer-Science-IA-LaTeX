@@ -1,12 +1,5 @@
 \documentclass[advisory-ia.tex]{subfiles}
 
-\DoIfAndOnlyIfStandAlone{%
-  \externaldocument{Crit_A_Planning.tex}%
-  \externaldocument{Crit_B_Design.tex}%
-  \externaldocument{Crit_C_Development.tex}%
-  \externaldocument{appendix.tex}%
-}%
-
 \begin{document}
   \section{Evaluation}
   \label{sec:eval}
@@ -22,7 +15,5 @@
   Currently it only shows teachers, but in order to make modifications to students before generation I will need to provide the user with some way of viewing a list of students.
 
   My client was very pleased with the Frontend design and the functionality of the Backend when demonstrated.
-  \DoIfAndOnlyIfStandAlone{%
-    \label{mylastpage}
-  }%
+  \lastpagelabel
 \end{document}

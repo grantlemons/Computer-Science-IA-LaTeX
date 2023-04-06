@@ -1,13 +1,15 @@
 \documentclass{paper}
 
-\newcommand\longempty{}%
-\newcommand\DoIfAndOnlyIfStandAlone{%
-  \ifx\document\longempty
-    \expandafter\@gobble
-  \else
-    \expandafter\@firstofone
-  \fi
-}%
+\usepackage{etoolbox}
+\usepackage{subfiles}
+\makeatletter
+\ifdef{\old@document@subfiles}{
+  \newcommand{\lastpagelabel}{}
+}{
+  \newcommand{\lastpagelabel}{\label{mylastpage}}
+}
+\makeatother
+\newcommand{\optionalSubfile}[1]{\subfile{#1}}
 
 %Document Info
 \newcommand{\thetitle}{Smart Advisory Generator}
@@ -36,7 +38,7 @@
 \newpage
 \pagestyle{frontorback}
 \pagenumbering{Roman}
-\subfile{appendix}
+\optionalSubfile{appendix}
 \newpage
 \listoffigures
 \vspace{1cm}
